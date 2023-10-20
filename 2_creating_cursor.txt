@@ -1,0 +1,24 @@
+CREATE OR REPLACE Procedure sefa_setter_borc(i_Aboneno In Taksit.Sinav_Borclar.Aboneno%Type, i_Donem In Taksit.Sinav_Borclar.Donem%Type, i_Sonuc Out varchar2) Is
+  Cursor Kk Is
+    Select t.Aboneno, t.Donem, t.Borc
+      From Taksit.Sinav_Borclar t
+     Where t.Donem = i_Donem
+           And t.Aboneno = i_Aboneno;
+
+  cnt number:=0;
+Begin
+  i_Sonuc  := 'aha sıçtık';
+  for k in kk loop
+    update test_borc t1
+    set t1.borc = k.borc
+      where t1.aboneno=k.aboneno
+      and t1.donem=k.donem;
+      cnt := sql%rowcount;
+  end loop;
+  if cnt>0 then
+    i_Sonuc:='kara gozlum yakısıklım okeye doner gıbı dondum sana';
+    commit;
+  end if;
+
+
+End;

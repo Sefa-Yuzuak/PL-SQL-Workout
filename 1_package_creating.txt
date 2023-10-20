@@ -1,0 +1,21 @@
+CREATE OR REPLACE Package Pk_Sefa_All Is
+
+  Type Sefa_Bavul Is Record(
+    
+    Adi       a_Mahalle.Adi%Type,
+    Ilce_Kodu a_Mahalle.Ilce_Kodu%Type,
+    Durumu    a_Mahalle.Durumu%Type
+    
+    );
+
+  Type Arr_Sefa_Get Is Table Of Sefa_Bavul Index By Binary_Integer;
+
+  --package declaration
+
+  Procedure Sefa_Setter_Borc(i_Aboneno In Taksit.Sinav_Borclar.Aboneno%Type,
+                             i_Donem   In Taksit.Sinav_Borclar.Donem%Type,
+                             i_Sonuc   Out Varchar2);
+  Procedure Pr_Test_Table_Sefa(Donem In Number, o_Sonuc Out Number);
+  Function Fn_Sefa_Get_Ilce(i_Ilcekodu In a_Mahalle.Ilce_Kodu%Type) Return Pk_Sefa_All.Arr_Sefa_Get;
+
+End;
